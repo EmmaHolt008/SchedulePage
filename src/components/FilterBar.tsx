@@ -1,3 +1,5 @@
+// Same pattern as EventCard: display + report clicks upward. The
+// actual filtering decisions live in SchedulePage, not here.
 import type { EventCategory } from "../types/event";
 
 const CATEGORY_LABELS: EventCategory[] = [
@@ -20,6 +22,9 @@ interface FilterBarProps {
   onToggleFavoritesOnly: () => void;
 }
 
+// Controlled input: value comes from props, not the DOM's own internal
+// state. Every keystroke flows up via onSearchChange, then back down
+// as the new value — this keeps the parent as the single source of truth.
 export function FilterBar({
   searchTerm,
   onSearchChange,

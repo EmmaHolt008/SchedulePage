@@ -1,6 +1,11 @@
+// This is the ONLY file that calls fetch(). If the API base URL,
+// auth, or response shape ever changes, this is the one place to look.
+
+// Multiplying by 1000: the API gives seconds, JS Date expects milliseconds.
 import type { ApiEvent, ScheduleEvent } from "../types/event";
 
 const BASE_URL = "https://adonix.hackillinois.org";
+
 
 /**
  * Converts a raw API event into the shape the UI wants to render.

@@ -20,7 +20,16 @@ export function SchedulePage() {
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
 
   const days = useMemo(() => groupByDay(events), [events]);
-  const currentDayKey = activeDayKey ?? days[0]?.key ?? null;
+  // This component owns all the filter/selection STATE. Everything else
+// it renders is handed pre-computed data as props and just displays it.
+
+// activeDayKey starts as null (nothing picked yet); this line falls
+// back to the first available day once data has loaded.
+const currentDayKey = activeDayKey ?? days[0]?.key ?? null;
+
+// useMemo here because `days` and `visibleEvents` are DERIVED from
+// other state, not independent facts — recompute only when their
+// actual inputs change, not on every render.
 
   function toggleCategory(category: EventCategory) {
     setActiveCategories((prev) => {

@@ -1,3 +1,5 @@
+// Same pattern as EventCard: display + report clicks upward. The
+// actual filtering decisions live in SchedulePage, not here.
 import type { DayGroup } from "../utils/time";
 
 interface DayTabsProps {

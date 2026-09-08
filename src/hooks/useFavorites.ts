@@ -1,3 +1,9 @@
+// Lazy initializer (the () => {...} passed to useState) — this runs
+// ONCE on first render, not on every re-render. Without the wrapper
+// function, localStorage would get read on every single render.
+
+// try/catch guards against corrupted localStorage content (e.g. if
+// someone hand-edits it) crashing the whole app on load.
 import { useCallback, useEffect, useState } from "react";
 
 const STORAGE_KEY = "hackillinois-favorite-events";

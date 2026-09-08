@@ -1,3 +1,7 @@
+// isMounted guards against calling setState after this component has
+// already been removed from the screen (e.g., user navigated away
+// mid-fetch) — without it, React logs a warning about updating an
+// unmounted component.
 import { useEffect, useState } from "react";
 import { fetchEvents } from "../api/hackIllinoisApi";
 import type { ScheduleEvent } from "../types/event";

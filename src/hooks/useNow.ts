@@ -1,3 +1,6 @@
+// Updates once a minute, not once a second — a schedule page doesn't
+// need second-level precision for "is this happening now," and this
+// keeps re-renders cheap.
 import { useEffect, useState } from "react";
 
 export function useNow(): Date {

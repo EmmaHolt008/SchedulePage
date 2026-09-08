@@ -1,3 +1,7 @@
+// "Dumb" component: no fetching, no state of its own. Everything it
+// needs comes in as props, and clicks get reported upward via
+// onToggleFavorite rather than handled locally. Same input props
+// always produce the same rendered output.
 import type { ScheduleEvent } from "../types/event";
 import { formatTime, isHappeningNow } from "../utils/time";
 

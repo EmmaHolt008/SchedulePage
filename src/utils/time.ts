@@ -1,3 +1,8 @@
+// Plain functions, no React here on purpose — makes this easy to
+// reason about (and unit test) independent of any component.
+
+// dayKey: slicing the ISO string to 10 chars gives a clean, sortable
+// "YYYY-MM-DD" string to group same-day events under.
 import type { ScheduleEvent } from "../types/event";
 
 export function formatTime(date: Date): string {

@@ -1,3 +1,8 @@
+// Two separate types on purpose: ApiEvent is exactly what the network
+// gives us (raw, awkward — unix timestamps, no computed fields).
+// ScheduleEvent is what our components actually consume. Converting
+// once, at the API boundary, means no component downstream has to
+// think about timestamp math or joining location arrays.
 export type EventCategory =
   | "WORKSHOP"
   | "SPEAKER"
