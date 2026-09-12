@@ -9,7 +9,6 @@ export type EventCategory =
   | "MEAL"
   | "SOCIAL"
   | "MINIEVENT"
-  | "QNA"
   | "CHECKIN"
   | "OTHER";
 

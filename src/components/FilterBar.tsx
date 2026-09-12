@@ -1,6 +1,7 @@
 // Same pattern as EventCard: display + report clicks upward. The
 // actual filtering decisions live in SchedulePage, not here.
 import type { EventCategory } from "../types/event";
+import { CATEGORY_COLORS } from "../utils/categoryColors";
 
 const CATEGORY_LABELS: EventCategory[] = [
   "WORKSHOP",
@@ -8,7 +9,6 @@ const CATEGORY_LABELS: EventCategory[] = [
   "MEAL",
   "SOCIAL",
   "MINIEVENT",
-  "QNA",
   "CHECKIN",
   "OTHER",
 ];
@@ -44,22 +44,27 @@ export function FilterBar({
           onChange={(e) => onSearchChange(e.target.value)}
         />
         <button
-          className={`my-schedule-toggle ${showFavoritesOnly ? "active" : ""}`}
-          onClick={onToggleFavoritesOnly}
-        >
-          ★ My Schedule
-        </button>
+  className={`my-schedule-toggle ${showFavoritesOnly ? "active" : ""}`}
+  onClick={onToggleFavoritesOnly}
+>
+  ★ Favorites Only
+</button>
       </div>
 
       <div className="category-chips">
         {CATEGORY_LABELS.map((category) => (
           <button
-            key={category}
-            className={`chip ${activeCategories.has(category) ? "active" : ""}`}
-            onClick={() => onToggleCategory(category)}
-          >
-            {category}
-          </button>
+  key={category}
+  className={`chip ${activeCategories.has(category) ? "active" : ""}`}
+  style={
+    activeCategories.has(category)
+      ? { backgroundColor: CATEGORY_COLORS[category], borderColor: CATEGORY_COLORS[category] }
+      : undefined
+  }
+  onClick={() => onToggleCategory(category)}
+>
+  {category}
+</button>
         ))}
       </div>
     </>

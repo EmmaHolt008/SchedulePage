@@ -4,6 +4,7 @@
 // always produce the same rendered output.
 import type { ScheduleEvent } from "../types/event";
 import { formatTime, isHappeningNow } from "../utils/time";
+import { CATEGORY_COLORS } from "../utils/categoryColors";
 
 interface EventCardProps {
   event: ScheduleEvent;
@@ -37,8 +38,9 @@ export function EventCard({ event, now, isFavorite, onToggleFavorite }: EventCar
       {event.description && <p className="event-description">{event.description}</p>}
 
       <div className="tag-row">
-        <span className="category-tag">{event.eventType}</span>
-        {live && <span className="live-badge">Happening now</span>}
+        <span className="category-tag" style={{ backgroundColor: CATEGORY_COLORS[event.eventType] }}>
+  {event.eventType}
+</span>
       </div>
     </article>
   );

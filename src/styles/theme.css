@@ -1,0 +1,514 @@
+:root {
+  --abyss: #071b2a;
+  --deep-water: #0e3b52;
+  --current: #1c7c8c;
+  --seafoam: #7fdbc4;
+  --foam-white: #eef7f5;
+  --coral: #ff8a65;
+
+  --font-display: "Georgia", serif;
+  --font-body: system-ui, -apple-system, sans-serif;
+  --radius: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: linear-gradient(to bottom, #0a2e42 0%, var(--abyss) 100%);
+  color: var(--foam-white);
+}
+
+.page {
+  position: relative;
+  z-index: 1;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 32px 40px 80px;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  margin: 0 0 20px;
+}
+
+.ocean-background {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ocean-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% -10%, rgba(127, 219, 196, 0.15), transparent 60%);
+}
+
+.seaweed-row {
+  position: fixed;
+  bottom: -10px;
+  left: 0;
+  right: 0;
+  height: 34vh;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.seaweed-clump-outer {
+  position: absolute;
+  bottom: 0;
+  transform-origin: bottom center;
+}
+
+.seaweed-clump-inner {
+  transform-origin: bottom center;
+  animation: sway ease-in-out infinite alternate;
+}
+
+.seaweed-svg {
+  height: 33vh;
+  width: auto;
+  display: block;
+}
+
+.rock-ground {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 90px;
+  z-index: 2;
+  pointer-events: none;
+}
+/* ---------- View toggle ---------- */
+
+.view-toggle {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.view-toggle button {
+  background: transparent;
+  border: 1px solid rgba(127, 219, 196, 0.3);
+  color: var(--foam-white);
+  padding: 8px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.view-toggle button.active {
+  background: var(--current);
+  border-color: var(--current);
+}
+
+/* ---------- Mini calendar ---------- */
+
+.mini-calendar {
+  background: var(--deep-water);
+  border: 1px solid rgba(127, 219, 196, 0.2);
+  border-radius: var(--radius);
+  padding: 10px;
+  max-width: 450px;
+}
+
+.mini-calendar-month {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.mini-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+}
+
+.mini-calendar-weekday-label {
+  text-align: center;
+  font-size: 0.6rem;
+  color: rgba(238, 247, 245, 0.5);
+  padding-bottom: 2px;
+}
+
+.mini-calendar-day {
+  aspect-ratio: 1;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(238, 247, 245, 0.25);
+  font-size: 0.7rem;
+}
+
+.mini-calendar-day.has-event {
+  color: var(--foam-white);
+  background: rgba(127, 219, 196, 0.15);
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.mini-calendar-day.active {
+  background: var(--current);
+  color: var(--abyss);
+  border-radius: 50%;
+}
+/* ---------- Filter bar ---------- */
+
+.search-and-toggle {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.search-input {
+  flex: 1;
+  background: var(--deep-water);
+  border: 1px solid rgba(127, 219, 196, 0.2);
+  color: var(--foam-white);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+}
+
+.my-schedule-toggle {
+  border: 1px solid var(--coral);
+  color: var(--coral);
+  background: transparent;
+  border-radius: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.my-schedule-toggle.active {
+  background: var(--coral);
+  color: var(--abyss);
+}
+
+.category-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.chip {
+  border: 1px solid rgba(238, 247, 245, 0.25);
+  background: transparent;
+  color: var(--foam-white);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.chip.active {
+  background: var(--current);
+  border-color: var(--current);
+}
+
+/* ---------- Time grid ---------- */
+
+.time-grid {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  margin-top: 12px;
+}
+
+.time-grid-day-header {
+  padding: 8px;
+  text-align: center;
+  font-weight: 600;
+  font-family: inherit;
+  font-size: inherit;
+  color: var(--seafoam);
+  background: none;
+  border: none;
+  border-bottom: 1px solid rgba(127, 219, 196, 0.2);
+  cursor: pointer;
+}
+
+.time-grid-day-header:hover {
+  color: var(--foam-white);
+}
+
+.time-grid-hours {
+  display: flex;
+  flex-direction: column;
+  height: 900px;
+}
+
+.hour-label {
+  flex: 1;
+  font-size: 0.7rem;
+  color: rgba(238, 247, 245, 0.5);
+  text-align: right;
+  padding-right: 8px;
+  transform: translateY(-6px);
+}
+
+.time-grid-column {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 900px;
+  border-left: 1px solid rgba(127, 219, 196, 0.15);
+}
+
+.hour-line {
+  flex: 1;
+  border-bottom: 1px solid rgba(127, 219, 196, 0.08);
+}
+
+.grid-event {
+  position: absolute;
+  right: 4px;
+  color: var(--abyss);
+  border: 1px solid var(--abyss);  border-radius: 6px;
+  padding: 4px 6px;
+  font-size: 0.75rem;
+  text-align: left;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.grid-event.live {
+  box-shadow: 0 0 0 2px var(--coral);
+}
+
+.grid-event.favorite {
+  box-shadow: 0 0 0 2px var(--coral) inset;
+}
+
+.grid-event-star {
+  top: 2px;
+  right: 2px;
+  font-size: 0.7rem;
+  color: var(--coral);
+}
+
+.back-to-all-days {
+  background: none;
+  border: none;
+  color: var(--seafoam);
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 0 0 12px;
+  display: block;
+}
+
+/* ---------- Event detail panel ---------- */
+
+.event-detail-panel {
+  position: relative;
+  margin-top: 24px;
+  background: var(--deep-water);
+  border: 1px solid var(--coral);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+.detail-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--foam-white);
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.detail-time {
+  color: var(--seafoam);
+  margin: 0 0 4px;
+}
+
+.detail-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  margin: 0 0 6px;
+}
+
+.detail-location {
+  color: rgba(238, 247, 245, 0.7);
+  margin: 0 0 12px;
+}
+
+.detail-description {
+  line-height: 1.5;
+  margin-top: 12px;
+}
+
+.detail-map {
+  max-width: 100%;
+  border-radius: 8px;
+  margin-top: 12px;
+}
+
+/* ---------- Favorites list (My Events tab), reusing EventCard ---------- */
+
+.favorites-list {
+  margin-top: 12px;
+}
+
+.event-card {
+  position: relative;
+  background: var(--deep-water);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  margin-bottom: 14px;
+  border: 1px solid rgba(127, 219, 196, 0.12);
+}
+
+.event-card.live {
+  border-color: var(--coral);
+}
+
+.event-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.event-time {
+  font-size: 0.85rem;
+  color: var(--seafoam);
+  margin: 0 0 4px;
+}
+
+.event-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin: 0 0 6px;
+}
+
+.event-meta {
+  font-size: 0.85rem;
+  color: rgba(238, 247, 245, 0.7);
+  margin: 0 0 8px;
+}
+
+.event-description {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: rgba(238, 247, 245, 0.85);
+  margin: 0;
+}
+
+.tag-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.category-tag {
+  font-size: 0.75rem;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--current);
+  color: var(--abyss);
+}
+
+.live-badge {
+  font-size: 0.75rem;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--coral);
+  color: var(--abyss);
+}
+
+.favorite-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.3rem;
+  color: rgba(238, 247, 245, 0.4);
+  line-height: 1;
+  padding: 2px;
+}
+
+.favorite-button.active {
+  color: var(--coral);
+}
+
+/* ---------- Status states ---------- */
+
+.status-message {
+  text-align: center;
+  padding: 40px 20px;
+  color: rgba(238, 247, 245, 0.7);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.side-column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.mini-calendar-panel,
+.detail-panel-slot {
+  min-height: 260px;
+}
+
+.sun-rays {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.sun-ray {
+  position: absolute;
+  left: 50%;
+  top: -20%;
+  height: 160%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.16), transparent 65%);
+  clip-path: polygon(38% 0%, 62% 0%, 100% 100%, 0% 100%);
+  transform-origin: top center;
+  animation: ray-shimmer ease-in-out infinite alternate;
+}
+
+@keyframes ray-shimmer {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 0.85;
+  }
+}
+
+.fish-school {
+  position: absolute;
+  inset: 0;
+}
+
+.fish {
+  position: absolute;
+  opacity: 0.85;
+  scale: 1.5;
+}

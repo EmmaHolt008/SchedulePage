@@ -7,15 +7,17 @@
 //   if (error) return <p>Something went wrong: {error}</p>;
 
 //   return (
-//     <div>
-//       <h1>Hello, ocean 🌊</h1>
-//       <p>Loaded {events.length} events.</p>
-//       <pre>{JSON.stringify(events[0], null, 2)}</pre>
-//     </div>
-//   );
-// }
+
+import "./styles/theme.css";
+import { OceanBackground } from "./components/OceanBackground";
 import { SchedulePage } from "./components/SchedulePage";
 
 export default function App() {
-  return <SchedulePage />;
+  return (
+    <>
+      <OceanBackground />
+      <SchedulePage />
+    </>
+  );
 }
+
